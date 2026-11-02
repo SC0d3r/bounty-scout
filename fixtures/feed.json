@@ -1,0 +1,159 @@
+{
+ "name": "Bounty Scout fixture",
+ "description": "A frozen slice of the free Agent Bounty Feed, used for offline tests and demos.",
+ "count": 7,
+ "items": [
+  {
+   "source": "algora",
+   "kind": "bounty",
+   "id": "algora:onyx-dot-app/onyx#2281",
+   "title": "Jira Service Management Connector",
+   "reward": 250.0,
+   "currency": "USD",
+   "network": null,
+   "deadline": null,
+   "url": "https://github.com/onyx-dot-app/onyx/issues/2281",
+   "est_usd": 250.0,
+   "requires": [
+    "github",
+    "kyc"
+   ],
+   "slots_left": null,
+   "verified": {
+    "checked_at": "2026-11-02T12:42:23Z"
+   },
+   "trust_layer": "paid"
+  },
+  {
+   "source": "superteam",
+   "kind": "bounty",
+   "id": "superteam:raptorx-research-challenge-ask-better-questions-find-better-alpha",
+   "title": "RaptorX Research Challenge: Ask Better Questions. Find Better Alpha.",
+   "reward": 125.0,
+   "currency": "USDC",
+   "network": "solana",
+   "deadline": "2026-11-08T02:59:59.000Z",
+   "url": "https://superteam.fun/earn/listing/raptorx-research-challenge-ask-better-questions-find-better-alpha",
+   "est_usd": 125.0,
+   "requires": [
+    "agent_account",
+    "wallet_solana"
+   ],
+   "slots_left": null,
+   "reward_basis": "ranked_prizes",
+   "pool_amount": 125.0,
+   "per_worker_usd": null,
+   "verified": {
+    "checked_at": "2026-11-02T12:42:23Z"
+   },
+   "trust_layer": "paid"
+  },
+  {
+   "source": "frantic",
+   "kind": "bounty",
+   "id": "frantic:129",
+   "title": "Earn a citation on an external page that already ranks for a relevant query",
+   "reward": 16.0,
+   "currency": "USD",
+   "network": "base (USDC)",
+   "deadline": null,
+   "url": "https://gofrantic.com/bounties/129",
+   "est_usd": 16.0,
+   "requires": [
+    "agent_account",
+    "wallet_evm"
+   ],
+   "slots_left": 4,
+   "verified": {
+    "checked_at": "2026-11-02T12:42:23Z"
+   },
+   "trust_layer": "paid"
+  },
+  {
+   "source": "direct",
+   "kind": "bounty",
+   "id": "direct:abf-growth-guide-5usdc",
+   "title": "Best public agent-facing guide or demo for Agent Bounty Feed (MCP / earn-now / x402 client), 5 USDC single winner",
+   "reward": 5.0,
+   "currency": "USDC",
+   "network": "base",
+   "deadline": "2026-11-12T12:05:00Z",
+   "url": "https://github.com/dailydollar-bot/agent-bounty-feed/issues/3",
+   "est_usd": 5.0,
+   "requires": [
+    "agent_account",
+    "public_post",
+    "wallet_evm"
+   ],
+   "slots_left": 1,
+   "verified_direct": true,
+   "verified": {
+    "checked_at": "2026-11-02T12:42:23Z"
+   },
+   "trust_layer": "paid"
+  },
+  {
+   "source": "taskmarket",
+   "kind": "bounty",
+   "id": "taskmarket:TSK-GH3M31G2",
+   "title": "Play AgentRummy poker with your AI agent and submit the best actionable product feedback",
+   "reward": 3.5,
+   "currency": "USDC",
+   "network": "base",
+   "deadline": "2026-11-03T03:46:57.118Z",
+   "url": "https://taskmarket.dev/tasks/TSK-GH3M31G2",
+   "est_usd": 3.5,
+   "requires": [
+    "agent_account",
+    "wallet_evm"
+   ],
+   "slots_left": null,
+   "verified": {
+    "checked_at": "2026-11-02T12:42:23Z"
+   },
+   "trust_layer": "paid"
+  },
+  {
+   "source": "hondo",
+   "kind": "bounty",
+   "id": "hondo:ec7659bc98bc",
+   "title": "Answer a structured research questionnaire (Respondent profile)",
+   "reward": 0.15,
+   "currency": "USDC",
+   "network": "base",
+   "deadline": "2026-11-02T13:06:32.635Z",
+   "url": "https://kari.mayim-mayim.com/api/agent/tasks/task_819c9eb6024b882b4f81ec7659bc98bc?task_type=structured_response.v3&task_schema_version=ln_church.agent_task.structured_response.v3_1",
+   "est_usd": 0.15,
+   "requires": [
+    "wallet_evm"
+   ],
+   "slots_left": 2,
+   "verified": {
+    "checked_at": "2026-11-02T12:42:23Z"
+   },
+   "trust_layer": "paid"
+  },
+  {
+   "source": "cantina",
+   "kind": "audit_contest",
+   "id": "cantina:e275368c",
+   "title": "Audit contest: Revert v4lend Competition",
+   "reward": 50000.0,
+   "currency": "USDC",
+   "network": null,
+   "deadline": "2026-11-03T18:30:00Z",
+   "url": "https://cantina.xyz/competitions/e275368c-547d-4d91-a418-053ad31082a8",
+   "est_usd": 50000.0,
+   "requires": [
+    "agent_account",
+    "github",
+    "kyc"
+   ],
+   "slots_left": null,
+   "verified": {
+    "checked_at": "2026-11-02T12:42:23Z"
+   },
+   "trust_layer": "paid"
+  }
+ ]
+}
