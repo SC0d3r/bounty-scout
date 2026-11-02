@@ -62,6 +62,17 @@ model endpoint. The demo uses `deepseek/deepseek-v4-flash` through an
 OpenAI-compatible gateway; `openai/gpt-oss-20b` also works, with the caveats in
 `docs/FINDINGS.md`.
 
+**Known environment note (OpenMinion 0.1.17):** runtime migration 14 uses
+`UPDATE ... FROM`, which needs SQLite **>= 3.33**. If `python -c "import
+sqlite3; print(sqlite3.sqlite_version)"` prints 3.31 (for example a Python 3.12
+build on Ubuntu 20.04 or Debian 11), the first run stops with
+`Migration v14 (add_room_participant_join_seq) failed: near "FROM": syntax
+error`. Either use a Python linked against a newer SQLite, or apply the
+correlated-subquery fix in
+[OpenMinion PR #565](https://github.com/OpenMinion/openminion/pull/565). The
+recording was made on Ubuntu 20.04 with Python 3.12.9 and SQLite 3.31.1, with
+that patch applied.
+
 ```bash
 python3.11 -m venv .venv
 source .venv/bin/activate
@@ -77,8 +88,10 @@ export OPENMINION_DATA_ROOT="$OPENMINION_HOME"
 openminion config init --provider openai
 ```
 
-Then edit `$OPENMINION_HOME/agents.json` and set **both** provider blocks (see
-`docs/FINDINGS.md` for why both):
+Then edit `$OPENMINION_HOME/agents.json`. On OpenMinion 0.1.17, `config init`
+writes a `system.providers` copy that silently wins over `providers.*`
+([#566](https://github.com/OpenMinion/openminion/issues/566)), so set **both**
+blocks; after the fix lands, the top-level block is the only one to edit:
 
 ```json
 {

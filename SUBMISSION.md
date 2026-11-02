@@ -3,13 +3,17 @@
 **Project:** Bounty Scout — an OpenMinion agent that turns a raw crypto/OSS
 bounty feed into an evidence-backed shortlist.
 
-**Repository:** <https://github.com/SC0d3r/bounty-scout> (branch `hackathon-5`)
+**Repository:** <https://github.com/SC0d3r/bounty-scout> (branch `hackathon-5`,
+code snapshot `d776793`)
+
+**Submitted at:** DoraHacks Cortensor Hackathon #5 build
+<https://dorahacks.io/build/50881> (hackathon #2418, registration 182467)
 
 **Demo (1m 12s, real run):**
 <https://github.com/SC0d3r/bounty-scout/releases/download/demo-v1/demo.mp4>
 
-**Sample output:** [`docs/sample-report.md`](sample-report.md) — the exact report
-produced by the run in the video.
+**Sample output:** [`docs/sample-report.md`](docs/sample-report.md) — the exact
+report produced by the run in the video.
 
 ---
 
@@ -19,12 +23,12 @@ produced by the run in the video.
 |---|---|
 | Public source repository | <https://github.com/SC0d3r/bounty-scout>, Apache-2.0 |
 | README with setup and run instructions | [`README.md`](../README.md) — install, config, three commands, live feed example |
-| Short explanation of the OpenMinion SDK workflow | README §"Pipeline" and §"OpenMinion usage"; two `Agent` sessions (triage, verify), one `@tool` (`fetch_page`), skill `bounty-triage` |
+| Short explanation of the OpenMinion SDK workflow | README §"Pipeline" and §"Design decisions"; two `Agent` sessions (triage, verify), one `@tool` (`fetch_page`), skill `bounty-triage` |
 | One working example | `bounty-scout selftest` (offline, deterministic) and `bounty-scout scan --feed ...` (live model + page verification); both in the demo |
 | 1–5 minute demo video | Release `demo-v1`, 1m 12s. Real terminal run, idle-time compressed only; no voice required by the rules |
 | Building Blocks Tested | README §"Building Blocks Tested"; table below |
 | What We Learned | [`docs/FINDINGS.md`](FINDINGS.md); issues [#564](https://github.com/OpenMinion/openminion/issues/564), [#566](https://github.com/OpenMinion/openminion/issues/566), [#567](https://github.com/OpenMinion/openminion/issues/567) |
-| Bug-fix bonus | Issue [#564](https://github.com/OpenMinion/openminion/issues/564) + fix PR [#565](https://github.com/OpenMinion/openminion/pull/565) (open, mergeable) |
+| Bug-fix bonus | Issue [#564](https://github.com/OpenMinion/openminion/issues/564) + fix PR [#565](https://github.com/OpenMinion/openminion/pull/565): changes addressed on head `701f2ae` (rebased on `dev`, 11/11 migration tests pass on SQLite 3.31.1), awaiting maintainer re-review |
 
 ---
 
