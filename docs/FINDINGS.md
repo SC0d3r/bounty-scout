@@ -130,6 +130,13 @@ the top-level one.
 with different values. A `config show --source` that names the winning block
 would make this debuggable.
 
+**Upstream:** reported as
+[openminion#566](https://github.com/OpenMinion/openminion/issues/566); the
+one-line serializer correction was reviewed and **merged into `dev` as
+`7efccdf`** in [PR #568](https://github.com/OpenMinion/openminion/pull/568).
+`#566` stays open for installed-package verification and the separately
+unconfirmed preset report.
+
 **Related trap:** `openminion setup --list-providers --json` advertises
 `custom-openai-compatible`, but selecting it fails at runtime with
 `Unknown provider 'custom-openai-compatible'. Supported: anthropic, cerebras,
