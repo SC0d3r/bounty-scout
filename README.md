@@ -6,6 +6,8 @@ jobs that can actually be finished and paid.
 
 Built for **Cortensor Hackathon #5**, on **OpenMinion 0.1.17**.
 
+[![tests](https://github.com/SC0d3r/bounty-scout/actions/workflows/tests.yml/badge.svg?branch=hackathon-5)](https://github.com/SC0d3r/bounty-scout/actions/workflows/tests.yml)
+
 **Demo (1m 12s, real run, no voiceover):**
 <https://github.com/SC0d3r/bounty-scout/releases/download/demo-v1/demo.mp4>
 
