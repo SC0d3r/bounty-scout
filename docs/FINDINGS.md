@@ -137,11 +137,14 @@ one-line serializer correction was reviewed and **merged into `dev` as
 `#566` stays open for installed-package verification and the separately
 unconfirmed preset report.
 
-**Related trap:** `openminion setup --list-providers --json` advertises
-`custom-openai-compatible`, but selecting it fails at runtime with
-`Unknown provider 'custom-openai-compatible'. Supported: anthropic, cerebras,
-claude, cortensor, echo, groq, ollama, openai, openrouter`. The only working
-path to a custom endpoint is repointing a built-in provider id (what we did).
+**Related rough edge:** `openminion setup --list-providers --json` lists
+`custom-openai-compatible` and `custom-anthropic-compatible`. Those are setup
+presets, not runtime provider keys: `setup --provider
+custom-openai-compatible` correctly writes `provider: openai` plus a
+`provider_config_overrides` block. The mapping is easy to miss when reading the
+preset list, and we initially misread it as a provider id. Setup handled it
+correctly on `dev`; a one-line note in the preset list would make the mapping
+explicit.
 
 ---
 

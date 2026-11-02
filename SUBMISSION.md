@@ -101,9 +101,8 @@ fixtures are two kinds of input:
    run. Reported in #564; the correlated-subquery fix is merged in PR #565
    (`5ab79e3`).
 2. **Config precedence was silent.** `config init` wrote a `system.providers`
-   mirror that won over `providers.*`; `custom-openai-compatible` is listed but
-   rejected at runtime. Reported in #566; the mirror fix is merged in PR #568
-   (`7efccdf`).
+   mirror that won over `providers.*`. Reported in #566; the mirror fix is
+   merged in PR #568 (`7efccdf`).
 3. **Typed output is fragile on the console channel.** The renderer's
    `openminion: ` prefix is present in the SDK-facing text; our structured-output
    calls failed, but upstream could not reproduce the simple-object case and the
