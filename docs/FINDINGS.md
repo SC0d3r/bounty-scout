@@ -84,6 +84,11 @@ This is the patch used to run Bounty Scout locally. It preserves the
 **Suggested upstream options:** use the correlated subquery above, or require
 SQLite >= 3.33 explicitly and document it, or catch the error and fall back.
 
+**Upstream:** reported as
+[openminion#564](https://github.com/OpenMinion/openminion/issues/564); the
+correlated-subquery fix is proposed in
+[PR #565](https://github.com/OpenMinion/openminion/pull/565).
+
 ---
 
 ## 2. `config init` writes a `system.providers` mirror that silently wins

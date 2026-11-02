@@ -207,7 +207,9 @@ Three OpenMinion bugs found while building this are written up with minimal
 reproductions in [`docs/FINDINGS.md`](docs/FINDINGS.md):
 
 1. Migration v14 fails on SQLite < 3.33 (`UPDATE ... FROM`), which blocks the
-   first run on Ubuntu 20.04.
+   first run on Ubuntu 20.04 — reported as
+   [openminion#564](https://github.com/OpenMinion/openminion/issues/564), fix
+   proposed in [PR #565](https://github.com/OpenMinion/openminion/pull/565).
 2. `config init` writes a `system.providers` mirror that silently overrides the
    top-level `providers` block.
 3. `Agent.run()` returns console-rendered text (`openminion: …`), so
