@@ -68,10 +68,10 @@ sqlite3; print(sqlite3.sqlite_version)"` prints 3.31 (for example a Python 3.12
 build on Ubuntu 20.04 or Debian 11), the first run stops with
 `Migration v14 (add_room_participant_join_seq) failed: near "FROM": syntax
 error`. Either use a Python linked against a newer SQLite, or apply the
-correlated-subquery fix in
-[OpenMinion PR #565](https://github.com/OpenMinion/openminion/pull/565). The
-recording was made on Ubuntu 20.04 with Python 3.12.9 and SQLite 3.31.1, with
-that patch applied.
+correlated-subquery fix merged in
+[OpenMinion PR #565](https://github.com/OpenMinion/openminion/pull/565) (merge
+`5ab79e3` on `dev`). The recording was made on Ubuntu 20.04 with Python 3.12.9
+and SQLite 3.31.1, with that patch applied.
 
 ```bash
 python3.11 -m venv .venv
@@ -224,7 +224,8 @@ reproductions in [`docs/FINDINGS.md`](docs/FINDINGS.md):
 1. Migration v14 fails on SQLite < 3.33 (`UPDATE ... FROM`), which blocks the
    first run on Ubuntu 20.04 — reported as
    [openminion#564](https://github.com/OpenMinion/openminion/issues/564), fix
-   proposed in [PR #565](https://github.com/OpenMinion/openminion/pull/565).
+   merged in [PR #565](https://github.com/OpenMinion/openminion/pull/565)
+   (merge `5ab79e3`).
 2. `config init` writes a `system.providers` mirror that silently overrides the
    top-level `providers` block.
 3. `Agent.run()` returns console-rendered text (`openminion: …`); our

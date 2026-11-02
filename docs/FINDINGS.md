@@ -86,8 +86,9 @@ SQLite >= 3.33 explicitly and document it, or catch the error and fall back.
 
 **Upstream:** reported as
 [openminion#564](https://github.com/OpenMinion/openminion/issues/564); the
-correlated-subquery fix is proposed in
-[PR #565](https://github.com/OpenMinion/openminion/pull/565).
+correlated-subquery fix is merged in
+[PR #565](https://github.com/OpenMinion/openminion/pull/565) (merge `5ab79e3` on
+`dev`).
 
 ---
 

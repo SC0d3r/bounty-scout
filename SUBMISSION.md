@@ -28,7 +28,7 @@ report produced by the run in the video.
 | 1–5 minute demo video | Release `demo-v1`, 1m 12s. Real terminal run, idle-time compressed only; no voice required by the rules |
 | Building Blocks Tested | README §"Building Blocks Tested"; table below |
 | What We Learned | [`docs/FINDINGS.md`](docs/FINDINGS.md); issues [#564](https://github.com/OpenMinion/openminion/issues/564), [#566](https://github.com/OpenMinion/openminion/issues/566), [#567](https://github.com/OpenMinion/openminion/issues/567) |
-| Bug-fix bonus | Two upstream fixes: issue [#564](https://github.com/OpenMinion/openminion/issues/564) + PR [#565](https://github.com/OpenMinion/openminion/pull/565) — SQLite < 3.33 migration (changes addressed on `201b144`, 11/11 migration tests pass on SQLite 3.31.1, awaiting re-review); issue [#566](https://github.com/OpenMinion/openminion/issues/566) + PR [#568](https://github.com/OpenMinion/openminion/pull/568) — one effective provider authority (`config init` no longer writes a mirror that overrides edits), 92 config tests pass |
+| Bug-fix bonus | Two upstream fixes: issue [#564](https://github.com/OpenMinion/openminion/issues/564) + PR [#565](https://github.com/OpenMinion/openminion/pull/565) — SQLite < 3.33 migration, **merged to `dev` as `5ab79e3`** (18/18 checks green; 20,835 tests passed on Python 3.11; #564 stays open for installed-package verification); issue [#566](https://github.com/OpenMinion/openminion/issues/566) + PR [#568](https://github.com/OpenMinion/openminion/pull/568) — one effective provider authority (`config init` no longer writes a mirror that overrides edits), 92 config tests pass, awaiting final checks |
 
 ---
 
@@ -98,7 +98,8 @@ fixtures are two kinds of input:
 
 1. **SQLite floor is undeclared.** Migration v14 uses `UPDATE ... FROM`, which
    needs SQLite ≥ 3.33; a stock Ubuntu 20.04 / Debian 11 Python dies on first
-   run. Reported in #564, fix in PR #565 (correlated subquery).
+   run. Reported in #564; the correlated-subquery fix is merged in PR #565
+   (`5ab79e3`).
 2. **Config precedence is silent.** `config init` writes a `system.providers`
    mirror that wins over `providers.*`; `custom-openai-compatible` is listed but
    rejected at runtime. Reported in #566.
