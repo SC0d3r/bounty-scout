@@ -28,7 +28,7 @@ report produced by the run in the video.
 | 1–5 minute demo video | Release `demo-v1`, 1m 12s. Real terminal run, idle-time compressed only; no voice required by the rules |
 | Building Blocks Tested | README §"Building Blocks Tested"; table below |
 | What We Learned | [`docs/FINDINGS.md`](docs/FINDINGS.md); issues [#564](https://github.com/OpenMinion/openminion/issues/564), [#566](https://github.com/OpenMinion/openminion/issues/566), [#567](https://github.com/OpenMinion/openminion/issues/567) |
-| Bug-fix bonus | Issue [#564](https://github.com/OpenMinion/openminion/issues/564) + fix PR [#565](https://github.com/OpenMinion/openminion/pull/565): changes addressed on head `701f2ae` (rebased on `dev`, 11/11 migration tests pass on SQLite 3.31.1), awaiting maintainer re-review |
+| Bug-fix bonus | Two upstream fixes: issue [#564](https://github.com/OpenMinion/openminion/issues/564) + PR [#565](https://github.com/OpenMinion/openminion/pull/565) — SQLite < 3.33 migration (changes addressed on `201b144`, 11/11 migration tests pass on SQLite 3.31.1, awaiting re-review); issue [#566](https://github.com/OpenMinion/openminion/issues/566) + PR [#568](https://github.com/OpenMinion/openminion/pull/568) — one effective provider authority (`config init` no longer writes a mirror that overrides edits), 92 config tests pass |
 
 ---
 
