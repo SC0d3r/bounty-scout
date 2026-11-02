@@ -137,10 +137,12 @@ path to a custom endpoint is repointing a built-in provider id (what we did).
 
 ---
 
-## 3. `Agent.run()` returns console-rendered text, so `output_type` always fails
+## 3. `Agent.run()` returns console-rendered text; `output_type` failed in our console runs
 
-**Severity:** medium. The typed Python API cannot be used for structured output
-on the console channel.
+**Severity:** medium in practice (unconfirmed root cause). The SDK-facing text
+carries the CLI render prefix, and our structured-output calls failed. Upstream
+could not reproduce the exact simple-object case, so this is an open rough edge
+rather than a settled defect.
 
 **Reproduce:**
 
@@ -165,20 +167,29 @@ AgentOutputValidationError: Reply did not validate against Answer:
 ```
 
 The body is valid JSON; the literal `openminion: ` prefix from the console
-renderer is what breaks `json.loads`. With `output_type` removed, the same call
-returns `result.text == 'openminion: {"ok": true, "value": 42}'`, and
+renderer is present in the text passed to `json.loads`. With `output_type`
+removed, the same call returns
+`result.text == 'openminion: {"ok": true, "value": 42}'`, and
 `result.raw["body"]` has the same prefix.
 
-**Cause:** `api/agent.py::_coerce_output` validates `reply_text` as returned by
-the console channel without stripping the channel's render prefix.
+**What is confirmed and what is not:** the prefixed SDK text is reproducible.
+Upstream's source probe on `dev` could not reproduce this exact simple-object
+failure, because `api/agent.py::_coerce_output` retries with
+`_extract_json_object`, which recovers the first balanced object and masks the
+prefix. The exception above also keeps the initial JSON-parse error even when a
+later model validation is the real cause, so the prefix alone does not explain
+the failure. The maintainer asked for a distinguishing reproduction
+([#567](https://github.com/OpenMinion/openminion/issues/567)); until that lands,
+treat this as an open, unconfirmed rough edge.
 
 **Workaround used here:** no `output_type`; parse `result.text` with
 `scout.agent.parse_json_object`, which strips `openminion:`, markdown fences,
 and accepts a top-level array as well as an object.
 
-**Suggested fix:** strip the channel prefix before coercion, or return the raw
-body to the Python API and keep rendering in the CLI layer. At minimum,
-document that `output_type` is not usable on the console channel.
+**Suggested fix:** return the raw body to the Python API and keep rendering in
+the CLI layer, so `output_type` never sees the render prefix. At minimum,
+document the console-channel caveat and include the raw text in the validation
+error.
 
 ---
 

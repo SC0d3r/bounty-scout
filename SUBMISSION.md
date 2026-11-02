@@ -92,7 +92,7 @@ fixtures are two kinds of input:
 | Skills | Works after two steps: `ingest` stages, `admit` requires a verification result and evidence ref. |
 | Diagnostics | Adequate. `BOUNTY_SCOUT_DEBUG=1` prints raw model replies; report notes say which evidence supported each verdict. |
 | Config | **Rough edge.** `system.providers` silently overrides `providers.*` (#566). |
-| Typed output | **Rough edge.** `output_type` fails on the console channel because of the `openminion: ` prefix (#567). |
+| Typed output | **Rough edge (open).** `output_type` failed in our console runs; the SDK-facing `result.text`/`raw["body"]` carry the `openminion: ` prefix. Upstream could not reproduce the simple-object case yet and asked for a distinguishing repro (#567). |
 
 ## What we learned
 
@@ -102,8 +102,11 @@ fixtures are two kinds of input:
 2. **Config precedence is silent.** `config init` writes a `system.providers`
    mirror that wins over `providers.*`; `custom-openai-compatible` is listed but
    rejected at runtime. Reported in #566.
-3. **Typed output is unusable on the console channel.** The renderer's
-   `openminion: ` prefix breaks `output_type` validation. Reported in #567.
+3. **Typed output is fragile on the console channel.** The renderer's
+   `openminion: ` prefix is present in the SDK-facing text; our structured-output
+   calls failed, but upstream could not reproduce the simple-object case and the
+   original error also retained the initial JSON-parse message. Reported in
+   #567 as an open rough edge, with the text parser as our workaround.
 4. **One-enum contracts beat nine-field JSON.** A small open model at
    `temperature=0.2` flipped between all-`no` and all-`go`; at `0.0` with a
    single enum it was stable enough to demo. The deterministic parts must stay

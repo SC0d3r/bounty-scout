@@ -227,8 +227,11 @@ reproductions in [`docs/FINDINGS.md`](docs/FINDINGS.md):
    proposed in [PR #565](https://github.com/OpenMinion/openminion/pull/565).
 2. `config init` writes a `system.providers` mirror that silently overrides the
    top-level `providers` block.
-3. `Agent.run()` returns console-rendered text (`openminion: …`), so
-   `output_type` validation always fails.
+3. `Agent.run()` returns console-rendered text (`openminion: …`); our
+   structured-output calls failed on it, while upstream's later probe could not
+   reproduce the simple-object case. We keep the text parser as the workaround
+   and track the open question in
+   [#567](https://github.com/OpenMinion/openminion/issues/567).
 
 ## Limits (read before trusting a shortlist)
 
