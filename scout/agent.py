@@ -30,6 +30,7 @@ Hard rules:
 - "no" means a hard blocker is visible in the fields.
 - "unsure" means the fields are insufficient. Prefer unsure over guessing.
 - A reward quoted in a token with no USD value is not a "go" unless the task is trivially bounded.
+- Never state payout counts, submission counts, winner counts or acceptance rates. Those fields are not in the input. If your reason contains a number, that number must appear in the input.
 
 Return one JSON object and nothing else. Shape:
 {"verdicts":[{"ref":"copy the ref verbatim","decision":"go|no|unsure","reason":"one sentence citing fields","red_flags":["short flag"]}]}
@@ -158,6 +159,31 @@ def _normalize_payload(payload: Any) -> list[dict[str, Any]]:
     return []
 
 
+UNVERIFIED_CLAIM = re.compile(
+    r"(?:paid|rejected|accepted|submissions?|winners?|entries|applicants?)\D{0,12}\d+"
+    r"|\b\d+\s*(?:paid|rejected|accepted|submissions?|winners?|entries|applicants?)",
+    re.IGNORECASE,
+)
+
+
+def _reason_cites_unverified_count(reason: str) -> bool:
+    """Reject a model reason that invents payout or competition counts.
+
+    Those fields are not in the free feed. A reason that cites them is not
+    evidence, even when it sounds plausible.
+    """
+
+    return bool(UNVERIFIED_CLAIM.search(reason))
+
+
+def _derived_reason(item: Listing, verdict: Verdict) -> str:
+    days = f"{item.days_left:.1f} days left" if item.days_left is not None else "no deadline"
+    requires = ", ".join(item.requires) or "no listed requirements"
+    decision = "go" if verdict.actionable else "not a go"
+    reward = f"${item.reward_usd:g}" if item.reward_usd is not None else "no USD reward"
+    return f"feed: {reward}, {days}, requires {requires}; model: {decision}"
+
+
 def _verdict_map(payload: Any, known: set[str]) -> dict[str, Verdict]:
     found: dict[str, Verdict] = {}
     for raw in _normalize_payload(payload):
@@ -212,15 +238,13 @@ def triage(agent: Agent, listings: Iterable[Listing], batch_size: int = 6) -> li
             verdict.requires_payment = item.requires_payment_upfront
             verdict.requires_human_social = item.requires_human_social
             if verdict.reason in {"model gave no reason", "model reply omitted a decision"}:
-                days = f"{item.days_left:.1f} days left" if item.days_left is not None else "no deadline"
-                requires = ", ".join(item.requires) or "no listed requirements"
-                decision = "go" if verdict.actionable else "not a go"
-                verdict.reason = (
-                    f"feed: ${item.reward_usd:g}, {days}, requires {requires}; model: {decision}"
-                    if item.reward_usd is not None
-                    else f"feed: no USD reward, {days}, requires {requires}; model: {decision}"
-                )
+                verdict.reason = _derived_reason(item, verdict)
                 verdict.red_flags.append("reason derived from feed fields (model gave none)")
+            elif _reason_cites_unverified_count(verdict.reason):
+                verdict.red_flags.append(
+                    "model reason cited a payout/competition count that is not in the feed; replaced"
+                )
+                verdict.reason = _derived_reason(item, verdict)
             verdicts.append(verdict)
     return verdicts
 
@@ -278,15 +302,22 @@ def verify(agent: Agent, listing: Listing) -> Verification:
 
     page = fetch_page(listing.url)
     reachable, evidence_ok, note = _evidence(listing, page)
+    discrepancy = ""
     if not reachable:
         still_listed: bool | None = False
     elif answer == "YES":
         still_listed = True
+    elif evidence_ok:
+        # The page still contains the title terms and the reward. A model "NO"
+        # does not override the page itself; record the disagreement.
+        still_listed = True
+        if answer == "NO":
+            discrepancy = " (model said NO against the page evidence)"
     elif answer == "NO":
         still_listed = False
     else:
-        still_listed = True if evidence_ok else None
-    model_note = f"model said {answer or 'nothing usable'}"
+        still_listed = None
+    model_note = f"model said {answer or 'nothing usable'}{discrepancy}"
     return Verification(
         ref=listing.ref,
         page_reachable=reachable,

@@ -53,7 +53,9 @@ feed.json ──► normalize ──► hard filters ──► model triage ─�
 ## Quick start
 
 Requirements: Python 3.11+, an OpenMinion install, and an OpenAI-compatible
-model endpoint.
+model endpoint. The demo uses `deepseek/deepseek-v4-flash` through an
+OpenAI-compatible gateway; `openai/gpt-oss-20b` also works, with the caveats in
+`docs/FINDINGS.md`.
 
 ```bash
 python3.11 -m venv .venv
@@ -79,7 +81,7 @@ Then edit `$OPENMINION_HOME/agents.json` and set **both** provider blocks (see
     "openai": {
       "base_url": "https://your-gateway.example/v1",
       "api_key_env": "GATEWAY_API_KEY",
-      "model": "openai/gpt-oss-20b",
+      "model": "deepseek/deepseek-v4-flash",
       "temperature": 0.0
     }
   },
@@ -88,7 +90,7 @@ Then edit `$OPENMINION_HOME/agents.json` and set **both** provider blocks (see
       "openai": {
         "base_url": "https://your-gateway.example/v1",
         "api_key_env": "GATEWAY_API_KEY",
-        "model": "openai/gpt-oss-20b",
+        "model": "deepseek/deepseek-v4-flash",
         "temperature": 0.0
       }
     }
@@ -181,8 +183,9 @@ From the Hackathon #5 list, this project exercises:
 
 - **Agent execution** — `Agent(...)` in-process sessions for triage and
   verification.
-- **Models** — a hosted `gpt-oss-20b` through an OpenAI-compatible gateway,
-  with `temperature=0` for stable verdicts.
+- **Models** — hosted `deepseek-v4-flash` and `gpt-oss-20b` through the same
+  OpenAI-compatible gateway, with `temperature=0` for stable verdicts. Swapping
+  the model is a config change, not a code change.
 - **Tools** — `fetch_page` as an OpenMinion `@tool`, called by the model during
   verification, with a deterministic fallback when the model's answer is
   unusable.

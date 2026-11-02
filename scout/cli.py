@@ -117,8 +117,6 @@ def command_scan(args: argparse.Namespace) -> int:
             ordered = rank([Triaged(listing, verdicts[listing.ref]) for listing in candidates])
             checks: dict[str, Verification] = {}
             for item in ordered[: args.verify_top]:
-                if not item.verdict.actionable and item.verdict.confidence >= 0.6:
-                    continue
                 try:
                     check = verifier(item.listing)
                 except Exception as exc:

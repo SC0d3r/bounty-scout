@@ -56,7 +56,9 @@ WHERE room_participants.id = numbered.id
 
 `UPDATE ... FROM` requires SQLite 3.33 (2020-08-14). Python 3.8/3.9 on Ubuntu
 20.04 ships 3.31.1, and OpenMinion advertises Python >= 3.11, so this is not an
-exotic configuration.
+exotic configuration. A source comment next to the migration acknowledges that
+the statement "needs SQLite 3.33", but the package metadata does not declare a
+SQLite floor and the failure is a hard stop on first run rather than a warning.
 
 **Fix that works on the old SQLite** (correlated subquery, same result):
 
