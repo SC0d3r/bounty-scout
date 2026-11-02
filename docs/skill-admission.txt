@@ -1,0 +1,4 @@
+Skill admission record for skills/bounty-triage (the data root used for the recorded demo).
+
+$ openminion skill list
+bounty-triage | SKILL | verified | e7fe2f0269ca...

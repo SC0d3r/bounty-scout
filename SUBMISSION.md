@@ -32,6 +32,21 @@ report produced by the run in the video.
 
 ---
 
+## Data and licensing
+
+The code and documentation are Apache-2.0 (`LICENSE`). The demo and test
+fixtures are two kinds of input:
+
+- `fixtures/feed.json` is synthetic: hand-written listings that exercise every
+  filter branch, with no third-party content.
+- `fixtures/agent-bounty-feed-2026-11-02.json` is a snapshot of the public JSON
+  feed at `dailydollar-bot/agent-bounty-feed` (25 factual rows: title, URL,
+  reward, deadline, source). The feed repository declares no license, so only
+  those factual fields are included and no code from it is used. The feed is
+  the thing the agent evaluates; it is not bundled as project source.
+
+---
+
 ## What it does
 
 1. **Normalize** a JSON feed into typed `Listing` objects.
@@ -60,7 +75,9 @@ report produced by the run in the video.
 - SQLite memory keys verdicts by a listing fingerprint, so unchanged listings
   are not re-triaged.
 - The `bounty-triage` skill is ingested with `openminion skill ingest` and
-  admitted as `verified` with a named check and evidence reference.
+  admitted as `verified` with a named check and evidence reference. The
+  admission record from the demo data root is committed at
+  [`docs/skill-admission.txt`](skill-admission.txt).
 
 ## Building Blocks Tested
 
