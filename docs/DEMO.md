@@ -1,7 +1,11 @@
 # Demo video
 
 Target: a 1–5 minute screen recording that shows the agent running and the
-result it produces. No human voice or on-camera presence is required by the
+result it produces.
+
+Published recording: <https://github.com/SC0d3r/bounty-scout/releases/download/demo-v1/demo.mp4>
+(1m 12s, rendered from `demo.cast` with `agg`; the only edit is idle-time
+compression, `--idle-time-limit 8`). No human voice or on-camera presence is required by the
 Hackathon #5 rules; captions are enough.
 
 The recording is a real terminal session. Long model waits are compressed with
@@ -45,20 +49,22 @@ profile's `action_policy` set to `{"mode": "bypass"}`.
 ## Recording
 
 ```bash
-# 1. record (compress idle gaps)
-asciinema rec /tmp/bounty-scout.cast --idle-time-limit 2 --command "bash /tmp/demo-script.sh"
+# 1. record (compress idle gaps; keep the file inside the repo workspace)
+asciinema rec demo.cast --cols 120 --rows 40 --idle-time-limit 8 \
+  --command "bash demo-script.sh"
 
-# 2. render (musl build works on older glibc)
-/tmp/agg --font-family "DejaVu Sans Mono" --font-size 18 \
-  --theme monokai /tmp/bounty-scout.cast /tmp/bounty-scout.mp4
+# 2. render (musl build works on older glibc; GNU build needs glibc >= 2.35)
+../bin/agg --font-family "DejaVu Sans Mono" --font-size 18 \
+  --theme monokai demo.cast demo.mp4
 
-# 3. burn captions
-ffmpeg -i /tmp/bounty-scout.mp4 -vf "subtitles=/tmp/captions.srt:force_style='FontSize=20,Outline=1'" \
+# 3. optional captions burn-in
+ffmpeg -i demo.mp4 -vf "subtitles=captions.srt:force_style='FontSize=20,Outline=1'" \
   -c:v libx264 -pix_fmt yuv420p docs/demo.mp4
 ```
 
 Keep `docs/demo.mp4` under ~40 MB. Delete the intermediate `.cast`, PNG frames
-and temporary renders afterwards.
+and temporary renders afterwards. The published recording is a GitHub release
+asset (tag `demo-v1`), not a committed binary.
 
 ## What must not appear on screen
 

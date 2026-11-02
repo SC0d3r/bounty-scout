@@ -6,6 +6,9 @@ jobs that can actually be finished and paid.
 
 Built for **Cortensor Hackathon #5**, on **OpenMinion 0.1.17**.
 
+**Demo (1m 12s, real run, no voiceover):**
+<https://github.com/SC0d3r/bounty-scout/releases/download/demo-v1/demo.mp4>
+
 ## The problem
 
 Public bounty feeds are discovery layers, not decision layers. A typical row
